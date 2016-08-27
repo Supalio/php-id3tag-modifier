@@ -7,3 +7,20 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+html, body {
+    background-color: $body-bg;
+    color: $text-color;
+    font-family: $font-family-sans-serif;
+    font-weight: 100;
+    margin: 0;
+}
+
+.file-list-table {
+    .short {
+        width: 50px;
+    }
+    .centered {
+        text-align: center;
+    }
+}
