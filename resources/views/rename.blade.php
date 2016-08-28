@@ -4,7 +4,21 @@
     PHP ID3Tag Modifier &gt; Rename Files
 @endsection
 
+@section('scripts')
+    <script type="text/javascript" src="{{ elixir('js/rename.js') }}"></script>
+@endsection
+
 @section('body')
+    @if (session()->has('files_moved') && session()->has('files_in_error'))
+        <div class="alert alert-info" role="alert">
+            <strong>{{ session('files_moved') }}</strong> files were successfully moved
+            @if (session('files_in_error') > 0)
+                but <strong>{{ session('files_in_error') }}</strong> were not
+            @endif
+            .
+        </div>
+    @endif
+
     <h1>Rename and move files</h1>
     <h6><b>{{ count($files) }}</b> .mp3 files in the directory</h6>
     <table class="table table-hover table-condensed file-list-table">
@@ -16,22 +30,16 @@
         </tr>
 
         @if ($files)
-            @foreach ($files as $file)
+            <form method="POST" action="{{ route('moveFiles') }}">
+                {{ csrf_field() }}
+                @each('partials.filetomove', $files, 'file')
                 <tr>
-                    <form method="POST" action="{{ route('moveFile') }}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="filepath" value="{{ $file->get_full_path() }}" />
-                        <td class="large">{{ $file->get_name() }}</td>
-                        <td class="large form-group"><input type="text" name="title" value="{{ $file->get_name() }}" class="form-control" /></td>
-                        <td class="short centered"><button type="submit" class="btn btn-outline-primary btn-sm">Move</button></td>
-                    </form>
-                    <form method="POST" action="{{ route('deleteFile') }}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="filepath" value="{{ $file->get_full_path() }}" />
-                        <td class="short centered"><button type="submit" class="btn btn-outline-danger btn-sm">Delete</button></td>
-                    </form>
+                    <td></td>
+                    <td><button type="submit" class="btn btn-outline-primary btn-large ">Move all files</button></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-            @endforeach
+            </form>
         @endif
     </table>
 @endsection

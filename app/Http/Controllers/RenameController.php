@@ -24,19 +24,43 @@ class RenameController extends Controller {
     /**
      * @param Request $request
      */
-    public function move(Request $request) {
-        $file = new File($request->filepath);
-        $file->rename_file(self::ROOTDIR, $request->title);
+    public function moveFiles(Request $request) {
+        $filesMoved = 0;
+        $filesInError = 0;
+
+        foreach ($request->filepath as $key => $filepath) {
+            $file = new File($filepath);
+            $result = $file->rename_file(self::ROOTDIR, $request->title[$key]);
+            if ($result) {
+                $filesMoved++;
+            } else {
+                $filesInError++;
+            }
+
+        }
+
+        session()->flash('files_moved', $filesMoved);
+        session()->flash('files_in_error', $filesInError);
 
         return back();
     }
 
     /**
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
+     */
+    public function moveFile(Request $request) {
+        $file = new File($request->filepath);
+        $result = $file->rename_file(self::ROOTDIR, $request->title);
+
+        return back();
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
      */
     public function delete(Request $request) {
         $file = new File($request->filepath);
-        $file->rename_file(self::TRASHDIR, $file->get_name());
+        $result = $file->rename_file(self::TRASHDIR, $file->get_name());
 
         return back();
     }

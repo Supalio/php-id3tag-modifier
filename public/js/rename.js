@@ -1,0 +1,7 @@
+function moveAction() {
+
+}
+
+function deleteAction() {
+	
+}
