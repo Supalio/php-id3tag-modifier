@@ -9,14 +9,14 @@ class File {
      *
      * @var string
      */
-    private $path;
+    protected $path;
 
     /**
      * The name of the file
      *
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * Create a new File
