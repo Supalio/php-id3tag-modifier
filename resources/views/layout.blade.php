@@ -22,5 +22,9 @@
     </head>
     <body>
         @yield('body')
+
+        <footer>
+            Generated in {{ number_format(1000 * (microtime(true) - LARAVEL_START), 0) }} ms
+        </footer>
     </body>
 </html>
