@@ -16,5 +16,5 @@ Route::get('/', function () {
 });
 
 /* Rename files */
-Route::get('rename', 'RenameController@index');
-Route::post('rename', 'RenameController@move');
+Route::get('rename', 'RenameController@index')->name('renameFiles');
+Route::post('rename', 'RenameController@moveFile')->name('moveFile');

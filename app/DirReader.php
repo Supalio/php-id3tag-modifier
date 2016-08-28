@@ -12,7 +12,7 @@ class DirReader {
     private $directory;
 
     /**
-     * The Files inside the directory
+     * The eligible files inside the directory
      *
      * @var array
      */

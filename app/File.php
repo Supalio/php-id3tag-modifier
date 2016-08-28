@@ -21,12 +21,12 @@ class File {
     /**
      * Create a new File
      *
-     * @param string $filePath
+     * @param string $filepath
      * @return void
      */
-    public function __construct(string $filePath) {
-        $this->path = $filePath;
-        $this->name = basename($filePath, '.mp3');
+    public function __construct(string $filepath) {
+        $this->path = $filepath;
+        $this->name = basename($filepath, '.mp3');
     }
 
     /**

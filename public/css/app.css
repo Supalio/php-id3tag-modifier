@@ -5771,10 +5771,15 @@ html, body {
   color: #636b6f;
   font-family: "Raleway", sans-serif;
   font-weight: 100;
-  margin: 0; }
+  margin: 0 10px; }
+
+.file-list-table .large {
+  width: 45%; }
 
 .file-list-table .short {
-  width: 50px; }
+  min-width: 50px;
+  max-width: 80px;
+  width: 5%; }
 
 .file-list-table .centered {
   text-align: center; }
