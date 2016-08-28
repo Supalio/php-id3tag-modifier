@@ -15,6 +15,7 @@
         @yield('style')
 
         <!-- Scripts / JS -->
+        <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
         @yield('scripts')

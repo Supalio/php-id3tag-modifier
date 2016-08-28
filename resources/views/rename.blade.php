@@ -10,7 +10,10 @@
 
 @section('body')
     @if (session()->has('files_moved') && session()->has('files_in_error'))
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             <strong>{{ session('files_moved') }}</strong> files were successfully moved
             @if (session('files_in_error') > 0)
                 but <strong>{{ session('files_in_error') }}</strong> were not
