@@ -18,3 +18,4 @@ Route::get('/', function () {
 /* Rename files */
 Route::get('rename', 'RenameController@index')->name('renameFiles');
 Route::post('rename', 'RenameController@move')->name('moveFile');
+Route::post('delete', 'RenameController@delete')->name('deleteFile');
