@@ -20,9 +20,9 @@ class RenameController extends Controller {
         return view('rename', compact('files'));
     }
 
-    public function moveFile(Request $request) {
+    public function move(Request $request) {
         $file = new File($request->filepath);
-        $file->rename_file(self::DESTDIR, $request->title);
+        $file->rename_file(self::ROOTDIR, $request->title);
 
         return back();
     }

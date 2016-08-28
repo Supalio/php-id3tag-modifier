@@ -17,15 +17,15 @@ html, body {
 }
 
 .file-list-table {
-    .large {
+    td.large {
         width: 45%;
     }
-    .short {
+    td.short {
         min-width: 50px;
         max-width: 80px;
         width: 5%;
     }
-    .centered {
+    td.centered {
         text-align: center;
     }
 }

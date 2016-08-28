@@ -5,7 +5,8 @@
 @endsection
 
 @section('body')
-    <h1>Rename files</h1>
+    <h1>Rename and move files</h1>
+    <h6><b>{{ count($files) }}</b> .mp3 files in the directory</h6>
         <table class="table table-hover table-condensed file-list-table">
             <tr>
                 <th class="large">Current title</th>

@@ -5773,15 +5773,15 @@ html, body {
   font-weight: 100;
   margin: 0 10px; }
 
-.file-list-table .large {
+.file-list-table td.large {
   width: 45%; }
 
-.file-list-table .short {
+.file-list-table td.short {
   min-width: 50px;
   max-width: 80px;
   width: 5%; }
 
-.file-list-table .centered {
+.file-list-table td.centered {
   text-align: center; }
 
 /*# sourceMappingURL=app.css.map */
