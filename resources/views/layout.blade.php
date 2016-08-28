@@ -17,7 +17,7 @@
         <!-- Scripts / JS -->
         <script src="{{ elixir('js/app.js') }}" type="text/javascript"></script>
         <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js" integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         @yield('scripts')
 
     </head>

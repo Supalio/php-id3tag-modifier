@@ -5,6 +5,11 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+        var moveUrl = "{{ route('moveFile') }}";
+        var deleteUrl = "{{ route('deleteFile') }}";
+    </script>
     <script type="text/javascript" src="{{ elixir('js/rename.js') }}"></script>
 @endsection
 

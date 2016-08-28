@@ -52,7 +52,9 @@ class RenameController extends Controller {
         $file = new File($request->filepath);
         $result = $file->rename_file(self::ROOTDIR, $request->title);
 
-        return back();
+        return [
+            'result' => $result,
+        ];
     }
 
     /**
@@ -62,7 +64,9 @@ class RenameController extends Controller {
         $file = new File($request->filepath);
         $result = $file->rename_file(self::TRASHDIR, $file->get_name());
 
-        return back();
+        return [
+            'result' => $result,
+        ];
     }
 
 }
