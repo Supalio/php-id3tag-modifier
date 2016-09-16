@@ -30,7 +30,7 @@ class RenameController extends Controller {
 
         foreach ($request->filepath as $key => $filepath) {
             $file = new File($filepath);
-            $result = $file->rename_file(self::ROOTDIR, $request->title[$key]);
+            $result = $file->rename_file(self::DESTDIR, $request->title[$key]);
             if ($result) {
                 $filesMoved++;
             } else {
@@ -50,7 +50,7 @@ class RenameController extends Controller {
      */
     public function moveFile(Request $request) {
         $file = new File($request->filepath);
-        $result = $file->rename_file(self::ROOTDIR, $request->title);
+        $result = $file->rename_file(self::DESTDIR, $request->title);
 
         return [
             'result' => $result,
