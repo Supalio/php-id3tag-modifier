@@ -16,7 +16,6 @@ class Suggester {
         $name = $this->get_clean_name($file->get_name());
 
         $allowedLetters = '[a-z0-9&.$@,!?\'_\[\]\.\s()-]';
-        // $allowedLetters = '[.\w\s]';
         $regex = '/^' . //start
         '(?<label>[a-z]+[0-9]+)?' . //get the label in front of the track name
         '(?<artist>' . $allowedLetters . '+)' . //get the artist name
