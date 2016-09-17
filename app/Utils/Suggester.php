@@ -15,22 +15,12 @@ class Suggester {
     public function get_suggested_name(File $file) {
         $name = $this->get_clean_name($file->get_name());
 
-        $allowedLetters = '[a-z0-9&.$@,!?\'_\[\]\.\s()-]';
-        $regex = '/^' . //start
-        '(?<label>[a-z]+[0-9]+)?' . //get the label in front of the track name
-        '(?<artist>' . $allowedLetters . '+)' . //get the artist name
-        '\s*-\s*' . //assumed separation of artist and title
-        '(?<title>' . $allowedLetters . '+)' . //get the title
-        '\s*' . //assumed separation of title and mix
-        '\((?<mix>' . $allowedLetters . '+)\)' . //get the mix
-        '(?<other>.+)*' . // get the rest
-        '$/i' // end
-        ;
-
-        if (preg_match($regex, $name, $result)) {
+        if (preg_match($this->get_regex(true), $name, $result) ||
+            preg_match($this->get_regex(false), $name, $result)
+        ) {
             $artist = $this->format_artist($result['artist']);
             $title = $this->format_title($result['title']);
-            $mix = $this->format_mix($result['mix']);
+            $mix = isset($result['mix']) ? $this->format_mix($result['mix']) : 'Original Mix';
             $name = $artist . ' - ' . $title . ' (' . $mix . ')';
         }
 
@@ -96,6 +86,23 @@ class Suggester {
         $name = trim($name); //Trim the name to be sure
 
         return $name;
+    }
+
+    private function get_regex(bool $includeMix) {
+        $allowedLetters = '[a-z0-9&.$@,!?\'_\[\]\.\s()-]';
+        $regex = '/^' . //start
+        '(?<label>[a-z]+[0-9]+)?' . //get the label in front of the track name
+        '(?<artist>' . $allowedLetters . '+)' . //get the artist name
+        '\s*-\s*' . //assumed separation of artist and title
+        '(?<title>' . $allowedLetters . '+)' . //get the title
+        '\s*' //assumed separation of title and mix
+        ;
+        $regex .= ($includeMix) ? '\((?<mix>' . $allowedLetters . '+)\)' : ''; //get the mix
+        $regex .= '(?<other>.+)*' . // get the rest
+        '$/i' // end
+        ;
+
+        return $regex;
     }
 
 }
