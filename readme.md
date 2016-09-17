@@ -23,7 +23,7 @@ PHP ID3 Tag Modifier (PITM) is a small app that allows you to :
 1. Install Laravel 5.3
 2. Clone the project
 3. Do a `composer update`
-    * You may have to change the APP_KEY in `.env`
+    * You may have to change the APP_KEY in `config/app.php`
 4. Find the `app/Http/Controllers/RenameController.php` and change the following constants
     * `ROOTDIR` to match the path of the directory you want to scan
     * `DESTDIR` to match the path of the directory you want to move the .mp3 files to
