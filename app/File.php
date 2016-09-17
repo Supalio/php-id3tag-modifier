@@ -19,6 +19,13 @@ class File {
     private $name;
 
     /**
+     * The tag written in the file
+     *
+     * @var array
+     */
+    private $tags;
+
+    /**
      * Create a new File
      *
      * @param string $filepath
@@ -27,6 +34,7 @@ class File {
     public function __construct(string $filepath) {
         $this->path = $filepath;
         $this->name = basename($filepath, '.mp3');
+        $this->tags = array();
     }
 
     /**
@@ -48,6 +56,15 @@ class File {
     }
 
     /**
+     * Get the tags of the file
+     *
+     * @return @array
+     */
+    public function get_tags() {
+        return $this->tags;
+    }
+
+    /**
      * Move the file to a new directory and rename it
      *
      * @param string $destinationDir
@@ -56,6 +73,21 @@ class File {
      */
     public function rename_file(string $destinationDir, string $name) {
         return rename($this->path, $destinationDir . '\\' . $name . '.mp3');
+    }
+
+    /**
+     * Analyze the file to read the tags and store them
+     *
+     * @return void
+     */
+    public function fetch_tags() {
+        $getID3 = new \getID3;
+        $fileInfo = $getID3->analyze($this->path);
+
+        $this->tags = $fileInfo['tags_html']['id3v2'];
+        if (isset($fileInfo['comments']['picture'])) {
+            $this->tags['image'] = $fileInfo['comments']['picture'][0];
+        }
     }
 
 }

@@ -8,6 +8,7 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Generic stuff
 html, body {
     background-color: $body-bg;
     color: $text-color;
@@ -21,6 +22,7 @@ footer {
     font-size: 0.85em;
 }
 
+// Table for the rename file page
 .file-list-table {
     td.large {
         width: 45%;
@@ -32,5 +34,56 @@ footer {
     }
     td.centered {
         text-align: center;
+    }
+}
+
+// Table for the edit tag page
+.tag-file-table {
+    tbody {
+        tr {
+            height: 75px;
+
+            td, th {
+                vertical-align: middle;
+            }
+
+            td.filename {
+                padding-left: 15px;
+                max-width: 300px;
+            }
+
+            td.image {
+                width: 50px;
+                padding: 0px;
+                text-align: center;
+                span {
+                    margin: 0px;
+                    padding: 0px;
+                    font-size: 10px;
+                    line-height: 1;
+                    display: inline-block;
+                }
+            }
+
+            td.action, td.year, td.track {
+                width: 50px;
+                max-width: 60px;
+            }
+
+            td.bpm, td.key {
+                width: 30px;
+                max-width: 50px;
+            }
+
+            td.action {
+                button {
+                    width: 45px;
+                }
+                button:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+            }
+
+        }
     }
 }

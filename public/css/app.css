@@ -5788,4 +5788,32 @@ footer {
 .file-list-table td.centered {
   text-align: center; }
 
+.tag-file-table tbody tr {
+  height: 75px; }
+  .tag-file-table tbody tr td, .tag-file-table tbody tr th {
+    vertical-align: middle; }
+  .tag-file-table tbody tr td.filename {
+    padding-left: 15px;
+    max-width: 300px; }
+  .tag-file-table tbody tr td.image {
+    width: 50px;
+    padding: 0px;
+    text-align: center; }
+    .tag-file-table tbody tr td.image span {
+      margin: 0px;
+      padding: 0px;
+      font-size: 10px;
+      line-height: 1;
+      display: inline-block; }
+  .tag-file-table tbody tr td.action, .tag-file-table tbody tr td.year, .tag-file-table tbody tr td.track {
+    width: 50px;
+    max-width: 60px; }
+  .tag-file-table tbody tr td.bpm, .tag-file-table tbody tr td.key {
+    width: 30px;
+    max-width: 50px; }
+  .tag-file-table tbody tr td.action button {
+    width: 45px; }
+  .tag-file-table tbody tr td.action button:not(:last-child) {
+    margin-bottom: 5px; }
+
 /*# sourceMappingURL=app.css.map */
