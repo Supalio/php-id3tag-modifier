@@ -6,6 +6,12 @@ use App\File;
 
 class Suggester {
 
+    /**
+     * Suggest a name for a file using its current name
+     *
+     * @param App\File
+     * @return string
+     */
     public function get_suggested_name(File $file) {
         $name = $this->get_clean_name($file->get_name());
 
@@ -32,7 +38,13 @@ class Suggester {
         return $name;
     }
 
-    private function format_artist(String $artist) {
+    /**
+     * Format an artist name by doing common replacements
+     *
+     * @param string
+     * @return string
+     */
+    private function format_artist(string $artist) {
         $artist = ucwords(trim($artist));
         $artist = preg_replace('/(ft\.?)|(feat\.?)/i', 'feat.', $artist); //Correct the feat
         $artist = preg_replace('/(vs\.?)/i', 'vs.', $artist); //Correct the vs.
@@ -43,11 +55,23 @@ class Suggester {
         return $artist;
     }
 
-    private function format_title(String $title) {
+    /**
+     * Format the title by doing common replacements
+     *
+     * @param string
+     * @return string
+     */
+    private function format_title(string $title) {
         return mb_convert_case(trim($title), MB_CASE_TITLE);
     }
 
-    private function format_mix(String $mix) {
+    /**
+     * Format the mix name by doing common replacements
+     *
+     * @param string
+     * @return string
+     */
+    private function format_mix(string $mix) {
         $mix = ucwords(trim($mix));
         $mix = preg_replace('/(ft\.?)|(feat\.?)/i', 'feat.', $mix); //Correct the feat
         $mix = preg_replace('/(vs\.?)/i', 'vs.', $mix); //Correct the vs.
@@ -59,7 +83,13 @@ class Suggester {
         return $mix;
     }
 
-    private function get_clean_name(String $name) {
+    /**
+     * Get a cleaner filename by doing some common replacements
+     *
+     * @param string
+     * @return string
+     */
+    private function get_clean_name(string $name) {
         $name = preg_replace('/^[0-9]+[-_.]?/', '', $name); //Remove track number
         $name = preg_replace('/_+/', ' ', $name); //Remove multiple _
         $name = preg_replace('/-+/', '-', $name); //Remove multiple -
