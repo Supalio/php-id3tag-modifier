@@ -6,7 +6,7 @@
         @endif
     </td>
     <td class="filename">
-        <a href="#" target="_blank">{{ $file->get_name() }}</a>
+        <a href="{{ $file->get_search_link('Beatport') }}" target="_blank">{{ $file->get_name() }}</a>
     </td>
     <td>@include('helpers.display_tag', ['tag' => 'artist'])</td>
     <td>@include('helpers.display_tag', ['tag' => 'title'])</td>

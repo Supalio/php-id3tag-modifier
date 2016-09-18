@@ -105,10 +105,47 @@ class File {
         $getID3 = new \getID3;
         $fileInfo = $getID3->analyze($this->path);
 
+        // Get all the common tags
         $this->tags = $fileInfo['tags_html']['id3v2'];
+        // Adding the cover art if it is available
         if (isset($fileInfo['comments']['picture'])) {
             $this->tags['image'] = $fileInfo['comments']['picture'][0];
         }
+    }
+
+    /**
+     * Generate a search link using the tags
+     *
+     * @param string
+     * @return string
+     */
+    private function get_search_link_with_tags(string $searchEngine) {
+        switch ($searchEngine) {
+        case 'Beatport':
+        case 'Beatport Classic':
+            $link = ($searchEngine === 'Beatport') ? 'https://www.beatport.com/search?q=' : 'http://classic.beatport.com/search?query=';
+            if (isset($this->suggested_tags['band'])) {
+                $link .= strtolower($this->suggested_tags['band'][0]);
+            } else {
+                $link .= strtolower($this->suggested_tags['artist'][0]);
+            }
+            if (isset($this->suggested_tags['album'])) {
+                $link .= '+' . strtolower($this->suggested_tags['album'][0]);
+            } else {
+                $link .= '+' . strtolower($this->suggested_tags['title'][0]);
+            }
+            $link = str_replace(' ', '+', $link);
+            $link = str_replace('&', '%26', $link);
+            break;
+        default:
+            $link = '#';
+        }
+
+        return $link;
+    }
+
+    public function get_search_link(string $searchEngine) {
+        return $this->get_search_link_with_tags($searchEngine);
     }
 
 }
