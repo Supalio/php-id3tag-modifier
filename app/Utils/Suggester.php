@@ -43,12 +43,29 @@ class Suggester {
     }
 
     /**
+     * Suggest info from the current value of the tags and the name of the file
+     *
+     * @param App\File
+     * @return array
+     */
+    public function get_suggested_info(File $file) {
+        $suggestedFromName = $this->get_suggested_info_from_name($file);
+        $suggestedFromName['title'] .= ' (' . $suggestedFromName['mix'] . ')'; //Add the mix to the title
+        $suggestedFromName['band'] = array($suggestedFromName['artist']); //Assume the album artist is the same as the artist of the track
+        unset($suggestedFromName['mix']);
+
+        $suggestedFromTags = $this->get_suggested_info_from_tags($file);
+
+        return array_merge_recursive($suggestedFromName, $suggestedFromTags);
+    }
+
+    /**
      * Suggest some tags for a file using already exsiting tags
      *
      * @param App\File
      * @return array
      */
-    public function get_suggested_info_from_tags(File $file) {
+    private function get_suggested_info_from_tags(File $file) {
         $tags = $file->get_tags();
         $suggestedTags = array();
 
@@ -169,7 +186,7 @@ class Suggester {
      * @return string
      */
     private function get_clean_name(string $name) {
-        $name = preg_replace('/^[0-9]+[-_.]?/', '', $name); //Remove track number
+        $name = preg_replace('/^[0-9]+[-_.\s]/', '', $name); //Remove track number
         $name = preg_replace('/_+/', ' ', $name); //Remove multiple _
         $name = preg_replace('/-+/', '-', $name); //Remove multiple -
         $name = preg_replace('/\[.*\]/', '', $name); //Remove label name between []

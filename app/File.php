@@ -45,7 +45,7 @@ class File {
         $this->suggested_tags = array();
         if ($fetchTags) {
             $this->fetch_tags();
-            $this->suggested_tags = app('suggester')->get_suggested_info_from_tags($this);
+            $this->suggested_tags = app('suggester')->get_suggested_info($this);
         }
     }
 
