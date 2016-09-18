@@ -6,6 +6,7 @@
 
 @section('scripts')
     <script type="text/javascript" src="{{ elixir('js/tags.js') }}"></script>
+    <script type="text/javascript" src="{{ elixir('js/rename.js') }}"></script>
 @endsection
 
 @section('body')

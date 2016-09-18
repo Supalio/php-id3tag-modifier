@@ -40,10 +40,11 @@ class DirReader {
     /**
      * Get all the eligible files in the directory
      *
+     * @param bool
      * @return array
      */
-    public function get_files() {
-        $this->set_top_level_files($this->directory);
+    public function get_files(bool $fetchTags = false) {
+        $this->set_top_level_files($this->directory, $fetchTags);
 
         return $this->files;
     }
@@ -52,16 +53,17 @@ class DirReader {
      * Set all the top level files of a given directory (excluding sub-directories)
      *
      * @param string $directroy
+     * @param bool $fetchTags
      * @return void
      */
-    private function set_top_level_files($directory) {
+    private function set_top_level_files(string $directory, bool $fetchTags = false) {
         if ($handle = opendir($directory)) {
 
             while (($fileName = readdir($handle)) !== false) {
 
                 if (preg_match('/mp3$/', $fileName)) {
                     //If the file is an MP3, we can add it
-                    $this->files[] = new File($this->get_full_path($directory, $fileName));
+                    $this->files[] = new File($this->get_full_path($directory, $fileName), $fetchTags);
                 } else if ($fileName !== '.' && $fileName !== '..' && is_dir($this->get_full_path($directory, $fileName))) {
                     //If the file is a subdirectory we explore the files inside
                     $this->set_top_level_files($this->get_full_path($directory, $fileName));

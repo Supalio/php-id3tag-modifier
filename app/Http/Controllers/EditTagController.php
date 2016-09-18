@@ -9,11 +9,7 @@ class EditTagController extends Controller {
 
     public function index() {
         $dirReader = new DirReader(self::SAMPLEDIR);
-        $files = $dirReader->get_files();
-
-        foreach ($files as $file) {
-            $file->fetch_tags();
-        }
+        $files = $dirReader->get_files(true); //Get the files and read their tags
 
         return view('list_tags', compact('files'));
     }

@@ -5,7 +5,9 @@
             <span>{{ $file->get_tags()['image']['image_width'] }}x{{ $file->get_tags()['image']['image_height'] }}</span>
         @endif
     </td>
-    <td class="filename">{{ $file->get_name() }}</td>
+    <td class="filename">
+        <a href="#" target="_blank">{{ $file->get_name() }}</a>
+    </td>
     <td>@include('helpers.display_tag', ['tag' => 'artist'])</td>
     <td>@include('helpers.display_tag', ['tag' => 'title'])</td>
     <td>@include('helpers.display_tag', ['tag' => 'album'])</td>

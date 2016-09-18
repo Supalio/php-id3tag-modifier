@@ -26,15 +26,27 @@ class File {
     private $tags;
 
     /**
+     * Some suggested tags
+     *
+     * @var array
+     */
+    private $suggested_tags;
+
+    /**
      * Create a new File
      *
      * @param string $filepath
      * @return void
      */
-    public function __construct(string $filepath) {
+    public function __construct(string $filepath, bool $fetchTags = false) {
         $this->path = $filepath;
         $this->name = basename($filepath, '.mp3');
         $this->tags = array();
+        $this->suggested_tags = array();
+        if ($fetchTags) {
+            $this->fetch_tags();
+            $this->suggested_tags = app('suggester')->get_suggested_info_from_tags($this);
+        }
     }
 
     /**
@@ -62,6 +74,15 @@ class File {
      */
     public function get_tags() {
         return $this->tags;
+    }
+
+    /**
+     * Get the suggested tags
+     *
+     * @return @array
+     */
+    public function get_suggested_tags() {
+        return $this->suggested_tags;
     }
 
     /**

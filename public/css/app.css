@@ -5792,6 +5792,13 @@ footer {
   height: 75px; }
   .tag-file-table tbody tr td, .tag-file-table tbody tr th {
     vertical-align: middle; }
+    .tag-file-table tbody tr td .suggested, .tag-file-table tbody tr th .suggested {
+      font-size: 10px;
+      margin-top: 5px; }
+      .tag-file-table tbody tr td .suggested ul, .tag-file-table tbody tr th .suggested ul {
+        margin: 0px;
+        padding: 0px;
+        list-style: none; }
   .tag-file-table tbody tr td.filename {
     padding-left: 15px;
     max-width: 300px; }

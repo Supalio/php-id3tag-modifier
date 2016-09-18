@@ -7,12 +7,12 @@ use App\File;
 class Suggester {
 
     /**
-     * Suggest a name for a file using its current name
+     * Suggest basic information for a file using its current name
      *
      * @param App\File
-     * @return string
+     * @return array
      */
-    public function get_suggested_name(File $file) {
+    public function get_suggested_info_from_name(File $file) {
         $name = $this->get_clean_name($file->get_name());
 
         if (preg_match($this->get_regex(true), $name, $result) ||
@@ -21,10 +21,88 @@ class Suggester {
             $artist = $this->format_artist($result['artist']);
             $title = $this->format_title($result['title']);
             $mix = isset($result['mix']) ? $this->format_mix($result['mix']) : 'Original Mix';
-            $name = $artist . ' - ' . $title . ' (' . $mix . ')';
         }
 
+        return array(
+            'artist' => $artist,
+            'title' => $title,
+            'mix' => $mix,
+        );
+    }
+
+    /**
+     * Suggest a name for a file using its current name
+     *
+     * @param App\File
+     * @return string
+     */
+    public function get_suggested_name(File $file) {
+        $info = $this->get_suggested_info_from_name($file);
+        $name = $info['artist'] . ' - ' . $info['title'] . ' (' . $info['mix'] . ')';
         return $name;
+    }
+
+    /**
+     * Suggest some tags for a file using already exsiting tags
+     *
+     * @param App\File
+     * @return array
+     */
+    public function get_suggested_info_from_tags(File $file) {
+        $tags = $file->get_tags();
+        $suggestedTags = array();
+
+        //Artist
+        if (isset($tags['artist'])) {
+            $suggestedTags['artist'] = array_map(array(get_class($this), 'format_artist'), $tags['artist']);
+        }
+
+        //Album Artist
+        if (isset($tags['band'])) {
+            $suggestedTags['band'] = array_map(array(get_class($this), 'format_artist'), $tags['band']);
+        }
+
+        //Title
+        if (isset($tags['title'])) {
+            $suggestedTags['title'] = array_map(array(get_class($this), 'format_title'), $tags['title']);
+        }
+
+        //Album
+        if (isset($tags['album'])) {
+            $suggestedTags['album'] = array_map(array(get_class($this), 'format_album'), $tags['album']);
+        }
+
+        //Label
+        if (isset($tags['publisher'])) {
+            $suggestedTags['content_group_description'] = $tags['publisher'];
+        }
+
+        //Track #
+        if (isset($tags['track_number'])) {
+            $track_numbers = explode('/', $tags['track_number'][0]);
+            $suggestedTags['track_number'] = array(intval($track_numbers[0]));
+            if (isset($track_numbers[1])) {
+                $suggestedTags['track_number'][] = intval($track_numbers[1]);
+            }
+
+        }
+
+        //BPM
+        if (isset($tags['bpm'])) {
+            $suggestedTags['bpm'] = ($tags['bpm'][0] === '93') ? array('140') : array(round($tags['bpm'][0]));
+        }
+
+        //Genre
+        if (isset($tags['genre'])) {
+            $suggestedTags['genre'] = array_map(function (string $genre) {
+                $genre = str_replace('Chillout', 'Chill Out', $genre);
+                $genre = preg_replace('/^(Tech|Uplifting|Progressive) Trance$/i', 'Trance', $genre);
+                $genre = str_replace('Psychedelic', 'Psy-Trance', $genre);
+                return $genre;
+            }, $tags['genre']);
+        }
+
+        return $suggestedTags;
     }
 
     /**
@@ -52,6 +130,18 @@ class Suggester {
      */
     private function format_title(string $title) {
         return mb_convert_case(trim($title), MB_CASE_TITLE);
+    }
+
+    /**
+     * Format the album by doing common replacements
+     *
+     * @param string
+     * @return string
+     */
+    private function format_album(string $album) {
+        $album = mb_convert_case(trim($album), MB_CASE_TITLE);
+        $album = preg_replace('/\bep\b/i', 'EP', $album);
+        return $album;
     }
 
     /**
@@ -90,16 +180,15 @@ class Suggester {
 
     private function get_regex(bool $includeMix) {
         $allowedLetters = '[a-z0-9&.$@,!?\'_\[\]\.\s()-]';
-        $regex = '/^' . //start
-        '(?<label>[a-z]+[0-9]+)?' . //get the label in front of the track name
-        '(?<artist>' . $allowedLetters . '+)' . //get the artist name
-        '\s*-\s*' . //assumed separation of artist and title
-        '(?<title>' . $allowedLetters . '+)' . //get the title
-        '\s*' //assumed separation of title and mix
-        ;
+        $regex = '/^'; //start
+        $regex .= '(?<label>[a-z]+[0-9]+)?'; //get the label in front of the track name
+        $regex .= '(?<artist>' . $allowedLetters . '+)'; //get the artist name
+        $regex .= '\s*-\s*'; //assumed separation of artist and title
+        $regex .= '(?<title>' . $allowedLetters . '+)'; //get the title
+        $regex .= '\s*'; //assumed separation of title and mix
         $regex .= ($includeMix) ? '\((?<mix>' . $allowedLetters . '+)\)' : ''; //get the mix
-        $regex .= '(?<other>.+)*' . // get the rest
-        '$/i' // end
+        $regex .= '(?<other>.+)*'; // get the rest
+        $regex .= '$/i'; // end
         ;
 
         return $regex;

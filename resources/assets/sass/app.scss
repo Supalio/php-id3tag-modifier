@@ -45,6 +45,17 @@ footer {
 
             td, th {
                 vertical-align: middle;
+
+                .suggested {
+                    font-size: 10px;
+                    margin-top: 5px;
+
+                    ul {
+                        margin: 0px;
+                        padding: 0px;
+                        list-style: none;
+                    }
+                }
             }
 
             td.filename {
