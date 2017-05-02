@@ -50,8 +50,9 @@ class Suggester {
      */
     public function get_suggested_info(File $file) {
         $suggestedFromName = $this->get_suggested_info_from_name($file);
-        $suggestedFromName['title'] .= ' (' . $suggestedFromName['mix'] . ')'; //Add the mix to the title
-        $suggestedFromName['band'] = array($suggestedFromName['artist']); //Assume the album artist is the same as the artist of the track
+        $suggestedFromName['title'] = array($suggestedFromName['title'] . ' (' . $suggestedFromName['mix'] . ')'); //Add the mix to the title
+        $suggestedFromName['artist'] = array($suggestedFromName['artist']);
+        $suggestedFromName['band'] = $suggestedFromName['artist']; //Assume the album artist is the same as the artist of the track
         unset($suggestedFromName['mix']);
 
         $suggestedFromTags = $this->get_suggested_info_from_tags($file);
