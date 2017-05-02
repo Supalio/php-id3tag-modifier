@@ -1,4 +1,6 @@
 <tr>
+    <input type="hidden" name="filepath[{{ $key }}]" value="{{ $file->get_full_path() }}" class="form-filepath" />
+
     <td class="image">
         @if (isset($file->get_tags()['image']))
             <img src="data:{{ $file->get_tags()['image']['image_mime'] }};base64,{{ base64_encode($file->get_tags()['image']['data']) }}" width="50" height="50" /><br />
@@ -19,7 +21,8 @@
     <td class="bpm">@include('helpers.display_tag', ['tag' => 'bpm'])</td>
     <td class="key">@include('helpers.display_tag', ['tag' => 'initial_key'])</td>
     <td class="action">
+        <button type="button" onclick="setAllTags(this)" class="btn btn-outline-primary btn-sm">Set</button>
         <button type="button" onclick="tagAction(this)" class="btn btn-outline-primary btn-sm">Tag</button>
-        <button type="button" onclick="deleteAction(this)" class="btn btn-outline-danger btn-sm">Del</button>
+        <button type="button" onclick="deleteAction(this, 13)" class="btn btn-outline-danger btn-sm">Del</button>
     </td>
 </tr>

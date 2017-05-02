@@ -44,7 +44,7 @@ footer {
             height: 75px;
 
             td, th {
-                vertical-align: middle;
+                vertical-align: top;
 
                 .suggested {
                     font-size: 10px;
@@ -59,6 +59,7 @@ footer {
             }
 
             td.filename {
+                vertical-align: middle;
                 padding-left: 15px;
                 max-width: 300px;
             }
@@ -67,6 +68,7 @@ footer {
                 width: 50px;
                 padding: 0px;
                 text-align: center;
+                vertical-align: middle;
                 span {
                     margin: 0px;
                     padding: 0px;
@@ -76,23 +78,31 @@ footer {
                 }
             }
 
-            td.action, td.year, td.track {
-                width: 50px;
-                max-width: 60px;
+            td.year {
+                width: 70px;
+                max-width: 80px;
             }
 
-            td.bpm, td.key {
-                width: 30px;
-                max-width: 50px;
+            td.track, td.bpm, td.key {
+                width: 60px;
+                max-width: 70px;
             }
 
             td.action {
+                width: 50px;
+                max-width: 70px;
+                text-align: center;
+                vertical-align: middle;
                 button {
                     width: 45px;
                 }
                 button:not(:last-child) {
                     margin-bottom: 5px;
                 }
+            }
+
+            td.valid-button {
+                text-align: right;
             }
 
         }

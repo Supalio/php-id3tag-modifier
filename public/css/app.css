@@ -7702,7 +7702,7 @@ footer {
 }
 
 .tag-file-table tbody tr td, .tag-file-table tbody tr th {
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .tag-file-table tbody tr td .suggested, .tag-file-table tbody tr th .suggested {
@@ -7717,6 +7717,7 @@ footer {
 }
 
 .tag-file-table tbody tr td.filename {
+  vertical-align: middle;
   padding-left: 15px;
   max-width: 300px;
 }
@@ -7725,6 +7726,7 @@ footer {
   width: 50px;
   padding: 0px;
   text-align: center;
+  vertical-align: middle;
 }
 
 .tag-file-table tbody tr td.image span {
@@ -7735,14 +7737,21 @@ footer {
   display: inline-block;
 }
 
-.tag-file-table tbody tr td.action, .tag-file-table tbody tr td.year, .tag-file-table tbody tr td.track {
-  width: 50px;
-  max-width: 60px;
+.tag-file-table tbody tr td.year {
+  width: 70px;
+  max-width: 80px;
 }
 
-.tag-file-table tbody tr td.bpm, .tag-file-table tbody tr td.key {
-  width: 30px;
-  max-width: 50px;
+.tag-file-table tbody tr td.track, .tag-file-table tbody tr td.bpm, .tag-file-table tbody tr td.key {
+  width: 60px;
+  max-width: 70px;
+}
+
+.tag-file-table tbody tr td.action {
+  width: 50px;
+  max-width: 70px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .tag-file-table tbody tr td.action button {
@@ -7751,6 +7760,10 @@ footer {
 
 .tag-file-table tbody tr td.action button:not(:last-child) {
   margin-bottom: 5px;
+}
+
+.tag-file-table tbody tr td.valid-button {
+  text-align: right;
 }
 
 /*# sourceMappingURL=app.css.map */

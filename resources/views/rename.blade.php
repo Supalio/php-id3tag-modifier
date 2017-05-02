@@ -43,7 +43,7 @@
                 @each('partials.filetomove', $files, 'file')
                 <tr>
                     <td></td>
-                    <td><button type="submit" class="btn btn-outline-primary btn-large ">Move all files</button></td>
+                    <td><button type="submit" class="btn btn-outline-primary btn-large">Move all files</button></td>
                     <td></td>
                     <td></td>
                 </tr>

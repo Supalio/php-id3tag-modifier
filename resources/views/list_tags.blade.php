@@ -5,6 +5,11 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+        var tagFileUrl = "{{ route('tagFile') }}";
+        var deleteUrl = "{{ route('deleteFile') }}";
+    </script>
     <script type="text/javascript" src="{{ asset(elixir('js/tags.js')) }}"></script>
     <script type="text/javascript" src="{{ asset(elixir('js/rename.js')) }}"></script>
 @endsection
@@ -31,9 +36,16 @@
                 <th>Action</th>
             </tr>
 
-            @if ($files)
-                @each('partials.filetotag', $files, 'file')
-            @endif
+            <form method="POST" action="{{ route('tagFiles') }}">
+                {{ csrf_field() }}
+                @if ($files)
+                    @each('partials.filetotag', $files, 'file')
+                @endif
+
+                <tr>
+                    <td colspan="13" class="valid-button"><button type="submit" class="btn btn-outline-primary btn-large">Tag all files</button></td>
+                </tr>
+            </form>
         </tbody>
     </table>
 @endsection
