@@ -91,6 +91,7 @@ class Suggester {
 
         //Label
         if (isset($tags['publisher'])) {
+            $suggestedTags['publisher'] = $tags['publisher'];
             $suggestedTags['content_group_description'] = $tags['publisher'];
         }
 
@@ -113,7 +114,7 @@ class Suggester {
         if (isset($tags['genre'])) {
             $suggestedTags['genre'] = array_map(function (string $genre) {
                 $genre = str_replace('Chillout', 'Chill Out', $genre);
-                $genre = preg_replace('/^(Tech|Uplifting|Progressive) Trance$/i', 'Trance', $genre);
+                $genre = preg_replace('/^(Tech|Uplifting|Progressive|Vocal|Dance -) Trance$/i', 'Trance', $genre);
                 $genre = str_replace('Psychedelic', 'Psy-Trance', $genre);
                 return $genre;
             }, $tags['genre']);
@@ -130,9 +131,9 @@ class Suggester {
      */
     private function format_artist(string $artist) {
         $artist = ucwords(trim($artist));
-        $artist = preg_replace('/(ft\.?)|(feat\.?)/i', 'feat.', $artist); //Correct the feat
-        $artist = preg_replace('/(vs\.?)/i', 'vs.', $artist); //Correct the vs.
-        $artist = preg_replace('/(pres\.?)/i', 'pres.', $artist); //Correct the pres.
+        $artist = preg_replace('/(\bft\b\.?)|(\bfeat\b\.?)|(featuring)/i', 'feat.', $artist); //Correct the feat
+        $artist = preg_replace('/(\bvs\b\.?)/i', 'vs.', $artist); //Correct the vs.
+        $artist = preg_replace('/(\bpres\b\.?)/i', 'pres.', $artist); //Correct the pres.
         $artist = preg_replace('/\band\b/i', '&', $artist); //Correct the and
         $artist = preg_replace('/\bwith\b/i', 'with', $artist); //Correct the with
 
@@ -169,9 +170,9 @@ class Suggester {
      */
     private function format_mix(string $mix) {
         $mix = ucwords(trim($mix));
-        $mix = preg_replace('/(ft\.?)|(feat\.?)/i', 'feat.', $mix); //Correct the feat
-        $mix = preg_replace('/(vs\.?)/i', 'vs.', $mix); //Correct the vs.
-        $mix = preg_replace('/(pres\.?)/i', 'pres.', $mix); //Correct the pres.
+        $mix = preg_replace('/(\bft\b\.?)|(\bfeat\b\.?)|(featuring)/i', 'feat.', $mix); //Correct the feat
+        $mix = preg_replace('/(\bvs\b\.?)/i', 'vs.', $mix); //Correct the vs.
+        $mix = preg_replace('/(\bpres\b\.?)/i', 'pres.', $mix); //Correct the pres.
         $mix = preg_replace('/\band\b/i', '&', $mix); //Correct the and
         $mix = preg_replace('/\bwith\b/i', 'with', $mix); //Correct the with
         $mix = preg_replace('/\brmx\b/i', 'Remix', $mix); //Correct the remix
@@ -198,7 +199,7 @@ class Suggester {
     private function get_regex(bool $includeMix) {
         $allowedLetters = '[a-z0-9&.$@,!?\'_\[\]\.\s()-]';
         $regex = '/^'; //start
-        $regex .= '(?<label>[a-z]+[0-9]+)?'; //get the label in front of the track name
+        $regex .= '(?<label>[a-z]+[0-9]+[A-Z]?)?'; //get the label in front of the track name
         $regex .= '(?<artist>' . $allowedLetters . '+)'; //get the artist name
         $regex .= '\s*-\s*'; //assumed separation of artist and title
         $regex .= '(?<title>' . $allowedLetters . '+)'; //get the title

@@ -10,7 +10,7 @@
         var moveUrl = "{{ route('moveFile') }}";
         var deleteUrl = "{{ route('deleteFile') }}";
     </script>
-    <script type="text/javascript" src="{{ elixir('js/rename.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(elixir('js/rename.js')) }}"></script>
 @endsection
 
 @section('body')

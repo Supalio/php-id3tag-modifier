@@ -12,7 +12,7 @@
     <td>@include('helpers.display_tag', ['tag' => 'title'])</td>
     <td>@include('helpers.display_tag', ['tag' => 'album'])</td>
     <td>@include('helpers.display_tag', ['tag' => 'band'])</td>
-    <td>@include('helpers.display_tag', ['tag' => 'content_group_description'])</td>
+    <td>@include('helpers.display_tag', ['tag' => 'publisher'])</td>
     <td>@include('helpers.display_tag', ['tag' => 'genre'])</td>
     <td class="year">@include('helpers.display_tag', ['tag' => 'year'])</td>
     <td class="track">@include('helpers.display_tag', ['tag' => 'track_number'])</td>

@@ -106,7 +106,9 @@ class File {
         $fileInfo = $getID3->analyze($this->path);
 
         // Get all the common tags
-        $this->tags = $fileInfo['tags_html']['id3v2'];
+        if (isset($fileInfo['tags_html'])) {
+            $this->tags = $fileInfo['tags_html']['id3v2'];
+        }
         // Adding the cover art if it is available
         if (isset($fileInfo['comments']['picture'])) {
             $this->tags['image'] = $fileInfo['comments']['picture'][0];
