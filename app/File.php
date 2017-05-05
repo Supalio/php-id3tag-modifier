@@ -93,6 +93,10 @@ class File {
      * @return boolean
      */
     public function rename_file(string $destinationDir, string $name) {
+        // Squash the directory if the filepath is too long and will generate an error
+        while (strlen($this->path) > 260) {
+            rename(dirname($this->path), dirname(dirname($this->path)) . '\\t');
+        }
         return rename($this->path, $destinationDir . '\\' . $name . '.mp3');
     }
 
