@@ -15,6 +15,19 @@
 @endsection
 
 @section('body')
+    @if (session()->has('files_tagged') && session()->has('files_in_error'))
+        <div class="alert alert-info alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <strong>{{ session('files_tagged') }}</strong> files were successfully tagged
+            @if (session('files_in_error') > 0)
+                but <strong>{{ session('files_in_error') }}</strong> were not
+            @endif
+            .
+        </div>
+    @endif
+
     <h1>Edit Tags</h1>
     <h6><b>{{ count($files) }}</b> .mp3 files in the directory</h6>
 

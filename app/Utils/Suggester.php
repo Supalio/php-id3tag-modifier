@@ -27,6 +27,7 @@ class Suggester {
             'artist' => $artist,
             'title' => $title,
             'mix' => $mix,
+            'album' => $title, // Suppose the album name is the same as the track name
         );
     }
 
@@ -200,7 +201,7 @@ class Suggester {
     private function get_regex(bool $includeMix) {
         $allowedLetters = '[a-z0-9&.$@,!?\'_\[\]\.\s()-]';
         $regex = '/^'; //start
-        $regex .= '(?<label>[a-z]+[0-9]+[A-Z]?)?'; //get the label in front of the track name
+        $regex .= '(?<label>[a-z]+[0-9]+[a-z]?)?'; //get the label in front of the track name
         $regex .= '(?<artist>' . $allowedLetters . '+)'; //get the artist name
         $regex .= '\s*-\s*'; //assumed separation of artist and title
         $regex .= '(?<title>' . $allowedLetters . '+)'; //get the title
