@@ -23,6 +23,12 @@ class Suggester {
             $mix = isset($result['mix']) ? $this->format_mix($result['mix']) : 'Original Mix';
         }
 
+        // Sometimes the mix is included in the title, try to split them
+        if (preg_match('/original mix/i', $title)) {
+            $title = preg_replace('/\s*\boriginal mix\b\s*/i', '', $title);
+            $mix = 'Original Mix';
+        }
+
         return array(
             'artist' => $artist,
             'title' => $title,
