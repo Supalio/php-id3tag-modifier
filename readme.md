@@ -28,3 +28,5 @@ PHP ID3 Tag Modifier (PITM) is a small app that allows you to :
     * `ROOTDIR` to match the path of the directory you want to scan
     * `DESTDIR` to match the path of the directory you want to move the .mp3 files to
     * `TRASHDIR` to match the path of the directory you want to move the deleted .mp3 files to
+5. Find the `app/Http/Controllers/EditTagController.php` and change the following constant
+    * `SAMPLEDIR` to match the path of the directory you want to scan for modifying the ID3 tags

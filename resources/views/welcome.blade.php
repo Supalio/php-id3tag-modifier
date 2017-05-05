@@ -73,7 +73,7 @@
 
                 <div class="links">
                     <a href="{{ route('renameFiles') }}">Rename files</a>
-                    <a href="#">Edit Tags</a>
+                    <a href="{{ route('editTags') }}">Edit Tags</a>
                 </div>
             </div>
         </div>

@@ -11,15 +11,15 @@ function moveAction(element) {
     });
 }
 
-function deleteAction(element) {
+function deleteAction(element, colspan) {
     var $this = $(element);
     var $row = $this.parents('tr');
     
     makeRequest($row, deleteUrl, function(response) {
         if (response.result) {
-            $row.html('<td colspan="4" class="alert alert-success" role="alert">The file was successfully deleted !</td>');
+            $row.html('<td colspan="' + colspan + '" class="alert alert-success" role="alert">The file was successfully deleted !</td>');
         } else {
-            $row.html('<td colspan="4" class="alert alert-danger" role="alert">Error while deleting the file</td>');
+            $row.html('<td colspan="' + colspan + '" class="alert alert-danger" role="alert">Error while deleting the file</td>');
         }
     });
 }

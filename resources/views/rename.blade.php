@@ -10,7 +10,7 @@
         var moveUrl = "{{ route('moveFile') }}";
         var deleteUrl = "{{ route('deleteFile') }}";
     </script>
-    <script type="text/javascript" src="{{ elixir('js/rename.js') }}"></script>
+    <script type="text/javascript" src="{{ asset(elixir('js/rename.js')) }}"></script>
 @endsection
 
 @section('body')
@@ -43,7 +43,7 @@
                 @each('partials.filetomove', $files, 'file')
                 <tr>
                     <td></td>
-                    <td><button type="submit" class="btn btn-outline-primary btn-large ">Move all files</button></td>
+                    <td><button type="submit" class="btn btn-outline-primary btn-large">Move all files</button></td>
                     <td></td>
                     <td></td>
                 </tr>
